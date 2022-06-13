@@ -1,0 +1,56 @@
+<?php
+/*resttest*/
+  $focus=0;
+  if(isset($_POST['btn_opdracht1'])){$focus=1;}
+  if(isset($_POST['btn_opdracht2'])) {$focus=2;}
+  $html="leeg";
+  if($focus==1)
+    {
+      $url="http://192.168.2.7:5000/NL";
+      $html=file_get_contents($url);
+    }
+  if($focus==2)
+   {
+     $url="http://192.168.2.7:5000/hoofdstad/" . $_POST['txt_land'];
+     $html=file_get_contents($url);
+   }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+</head>
+
+<body>
+   <table>
+     <tr>
+       <td>
+       <td>
+         <div class="form" style="text-align: center; padding:5px;">
+            <form method="POST" action="" name="opdracht1" id="opdracht1">
+              <input type="hidden" id="opdr1" name="opdr1" value="functieNL">
+              <input type="submit" value="Roep NL functie aan" name="btn_opdracht1" value="btn_opdracht1" >
+            </form>
+         </div>
+       </td>
+       <td>
+         <div class="form" style="text-align: center; padding:5px;">
+            <form method="POST" action="" name="opdracht2" id="opdracht2">
+              <input type="hidden" id="opdr2" name="opdr2" value="functieHoofdstad">
+              <input type="text" name="txt_land" id="txt_land" width="210px">
+              <input type="submit" value="Roep hoofdstad functie aan" name="btn_opdracht2" value="btn_opdracht2" >
+            </form>
+         </div>
+       </td>
+     </tr>
+   </table>
+   <hr/>
+   <?php
+       echo($html);
+   ?>
+
+</body>
+</html>
